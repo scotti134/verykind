@@ -57,7 +57,7 @@ export default function ProfileSetupPage({ onComplete, onNavigateHome }: Profile
       const { data: existingProfile, error: profileCheckError } = await supabase
         .from('profiles')
         .select('id')
-        .eq('id', user?.id)
+        .eq('user_id', user?.id)
         .maybeSingle();
 
       if (profileCheckError) {
@@ -70,7 +70,7 @@ export default function ProfileSetupPage({ onComplete, onNavigateHome }: Profile
         const { error: createProfileError } = await supabase
           .from('profiles')
           .insert({
-            id: user?.id,
+            user_id: user?.id,
             username: user?.email?.split('@')[0] || 'user',
             display_name: user?.email?.split('@')[0] || 'User',
             is_creator: true,
@@ -97,7 +97,7 @@ export default function ProfileSetupPage({ onComplete, onNavigateHome }: Profile
             avatar_url: profileImageUrl,
             cover_image_url: coverImageUrl
           })
-          .eq('id', user?.id);
+          .eq('user_id', user?.id);
 
         if (profileError) {
           console.error('Error updating profile:', profileError);
