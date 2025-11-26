@@ -314,7 +314,7 @@ export default function CreatorDashboard({
       const { data: existingProfile, error: profileCheckError } = await supabase
         .from('profiles')
         .select('id, username')
-        .eq('id', user?.id)
+        .eq('user_id', user?.id)
         .maybeSingle();
 
       console.log('Existing profile check:', { existingProfile, profileCheckError });
