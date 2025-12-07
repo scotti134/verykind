@@ -12,7 +12,8 @@ const categories = [
       'Health & Wellness',
       'Education & Mentorship',
       'Equality & Inclusion',
-      'Kind Acts & Mutual Aid'
+      'Kind Acts & Mutual Aid',
+      'Veterans'
     ]
   },
   {
