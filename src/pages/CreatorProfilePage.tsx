@@ -447,12 +447,12 @@ export default function CreatorProfilePage({
 
               <button
                 onClick={() => setIsDonationModalOpen(true)}
-                className="w-full bg-[#B8E986] hover:bg-[#A8D976] text-gray-900 font-bold py-4 px-6 rounded-lg transition-colors mb-3"
+                className="w-full bg-[#B8E986] hover:bg-[#A8D976] text-gray-900 font-bold py-4 px-6 rounded-full transition-colors mb-3"
               >
                 Donate now
               </button>
 
-              <button className="w-full bg-[#005C30] hover:bg-[#004A26] text-white font-bold py-4 px-6 rounded-lg transition-colors mb-6 flex items-center justify-center gap-2">
+              <button className="w-full bg-[#005C30] hover:bg-[#004A26] text-white font-bold py-4 px-6 rounded-full transition-colors mb-6 flex items-center justify-center gap-2">
                 <Share2 className="w-5 h-5" />
                 Share
               </button>
