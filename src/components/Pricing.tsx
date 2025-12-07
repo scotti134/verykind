@@ -54,7 +54,7 @@ export default function Pricing({ onNavigateToAuth }: PricingProps) {
               <div className="text-center">
                 <button
                   onClick={onNavigateToAuth}
-                  className="w-full sm:w-auto px-12 py-4 bg-[#E07855] text-white text-lg font-semibold rounded-full hover:bg-[#D06845] transition-all transform hover:scale-105 shadow-lg inline-flex items-center justify-center gap-3"
+                  className="w-full sm:w-auto px-12 py-4 bg-[#C97132] text-white text-lg font-semibold rounded-full hover:bg-[#B5651F] transition-all transform hover:scale-105 shadow-lg inline-flex items-center justify-center gap-3"
                 >
                   Start your FREE Page
                   <span className="bg-white/20 rounded-full p-1.5 flex items-center justify-center">

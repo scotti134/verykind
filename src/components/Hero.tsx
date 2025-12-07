@@ -36,7 +36,7 @@ export default function Hero({ onNavigateToAuth, onNavigateToExplore, onNavigate
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <button
             onClick={handleStartPage}
-            className="px-8 py-3.5 bg-[#E07855] text-white rounded-full font-medium text-base hover:bg-[#D06845] transition-colors shadow-lg border-2 border-transparent whitespace-nowrap flex items-center gap-3"
+            className="px-8 py-3.5 bg-[#C97132] text-white rounded-full font-medium text-base hover:bg-[#B5651F] transition-colors shadow-lg border-2 border-transparent whitespace-nowrap flex items-center gap-3"
           >
             Start your FREE Page
             <span className="bg-white/20 rounded-full p-1.5 flex items-center justify-center">

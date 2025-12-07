@@ -40,7 +40,7 @@ export default function RecurringSupport() {
                 <li>• Early news updates</li>
               </ul>
             </div>
-            <button className="w-full bg-[#E07855] text-white rounded-full py-3 font-semibold hover:bg-[#D06845] transition-colors mt-auto">
+            <button className="w-full bg-[#C97132] text-white rounded-full py-3 font-semibold hover:bg-[#B5651F] transition-colors mt-auto">
               Become a Friend
             </button>
           </div>
@@ -71,7 +71,7 @@ export default function RecurringSupport() {
                 </li>
               </ul>
             </div>
-            <button className="w-full bg-[#E07855] text-white rounded-full py-3 font-semibold hover:bg-[#D06845] transition-colors mt-auto">
+            <button className="w-full bg-[#C97132] text-white rounded-full py-3 font-semibold hover:bg-[#B5651F] transition-colors mt-auto">
               Become a Supporter
             </button>
           </div>
@@ -102,7 +102,7 @@ export default function RecurringSupport() {
                 </li>
               </ul>
             </div>
-            <button className="w-full bg-[#E07855] text-white rounded-full py-3 font-semibold hover:bg-[#D06845] transition-colors mt-auto">
+            <button className="w-full bg-[#C97132] text-white rounded-full py-3 font-semibold hover:bg-[#B5651F] transition-colors mt-auto">
               Become a Champion
             </button>
           </div>
