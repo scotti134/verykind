@@ -9,12 +9,12 @@ export default function RecurringSupport() {
             RECURRING SUPPORT
           </p>
           <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-            Build a community
+            Build sustainable support
             <br />
-            of dedicated supporters
+            with recurring memberships
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Create membership tiers to receive ongoing support. Share your mission, connect with supporters who believe in your cause, and build lasting relationships that fuel positive change.
+            Share exclusive updates from your work, connect directly with supporters, and give them a way to be part of the positive change you're creating.
           </p>
         </div>
 
