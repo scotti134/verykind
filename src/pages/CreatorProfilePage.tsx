@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
-import { Heart, Coffee, MoreHorizontal, Globe, Info } from 'lucide-react';
+import { Heart, Share2, ChevronLeft, ChevronRight, Shield, Flag } from 'lucide-react';
 import UserProfileDropdown from '../components/UserProfileDropdown';
 import DonationModal from '../components/DonationModal';
 
@@ -210,41 +210,28 @@ export default function CreatorProfilePage({
 
   const unitPrice = creatorPage.support_price || 5;
   const displayAmount = customAmount ? parseFloat(customAmount) : selectedAmount * unitPrice;
+  const goalAmount = 1500;
+  const raisedAmount = 1583;
+  const donationCount = recentSupporters.length || 30;
+  const progressPercentage = Math.min((raisedAmount / goalAmount) * 100, 100);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div className="w-full px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between relative">
+        <div className="w-full px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <button
             onClick={onNavigateBack}
-            className="text-2xl font-bold text-gray-900 hover:text-[#FFD54F] transition-colors"
+            className="text-2xl font-bold text-gray-900 hover:text-[#02A95C] transition-colors"
           >
             VK
           </button>
 
-          <div className="flex items-center gap-4 absolute left-1/2 transform -translate-x-1/2">
-            {creatorPage.profile_image_url ? (
-              <img
-                src={creatorPage.profile_image_url}
-                alt={creatorPage.username}
-                className="w-10 h-10 rounded-full object-cover"
-              />
-            ) : (
-              <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                <Heart className="w-5 h-5 text-gray-400" />
-              </div>
-            )}
-            <div>
-              <h1 className="font-bold text-gray-900">{creatorPage.title || creatorPage.username}</h1>
-              {creatorPage.show_supporter_count && (
-                <p className="text-sm text-gray-600">{supporterCount.toLocaleString()} supporters</p>
-              )}
-            </div>
-          </div>
-
           <div className="flex items-center gap-4">
-            <button className="text-gray-400 hover:text-gray-600">
-              <MoreHorizontal className="w-5 h-5" />
+            <button className="text-gray-600 hover:text-gray-900 text-sm font-medium">
+              Search
+            </button>
+            <button className="text-gray-600 hover:text-gray-900 text-sm font-medium">
+              Start a fundraiser
             </button>
             <UserProfileDropdown
               onNavigateToDashboard={onNavigateToDashboard}
@@ -255,406 +242,260 @@ export default function CreatorProfilePage({
         </div>
       </header>
 
-      <div className="bg-white border-b border-gray-200">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <nav className="flex gap-8">
-            <button
-              onClick={() => setActiveTab('home')}
-              className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
-                activeTab === 'home'
-                  ? 'border-red-400 text-red-600'
-                  : 'border-transparent text-gray-600 hover:text-gray-900'
-              }`}
-            >
-              Home
-            </button>
-            <button
-              onClick={() => {
-                if (onNavigateToMembership && creatorPage) {
-                  onNavigateToMembership(creatorPage.user_id, creatorPage.title, creatorPage.profile_image_url, creatorPage.id);
-                } else {
-                  setActiveTab('membership');
-                }
-              }}
-              className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
-                activeTab === 'membership'
-                  ? 'border-red-400 text-red-600'
-                  : 'border-transparent text-gray-600 hover:text-gray-900'
-              }`}
-            >
-              Membership
-            </button>
-            <button
-              onClick={() => {
-                if (onNavigateToPosts && creatorPage) {
-                  onNavigateToPosts(creatorPage.user_id, creatorPage.title, creatorPage.profile_image_url, creatorPage.id);
-                } else {
-                  setActiveTab('posts');
-                }
-              }}
-              className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
-                activeTab === 'posts'
-                  ? 'border-red-400 text-red-600'
-                  : 'border-transparent text-gray-600 hover:text-gray-900'
-              }`}
-            >
-              Posts
-            </button>
-            <button
-              onClick={() => {
-                if (onNavigateToShop && creatorPage) {
-                  onNavigateToShop(creatorPage.id, creatorPage.title, creatorPage.profile_image_url, creatorPage.user_id);
-                } else {
-                  setActiveTab('shop');
-                }
-              }}
-              className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
-                activeTab === 'shop'
-                  ? 'border-red-400 text-red-600'
-                  : 'border-transparent text-gray-600 hover:text-gray-900'
-              }`}
-            >
-              Shop
-            </button>
-          </nav>
-        </div>
-      </div>
-
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="flex-1">
+            <h1 className="text-4xl font-bold text-gray-900 mb-6">
+              {creatorPage.title || creatorPage.username}
+            </h1>
+
             {creatorPage.cover_image_url && (
-              <div className="mb-8 rounded-2xl overflow-hidden">
+              <div className="mb-6 rounded-xl overflow-hidden relative group">
                 <img
                   src={creatorPage.cover_image_url}
                   alt="Cover"
-                  className="w-full h-80 object-cover"
+                  className="w-full h-96 object-cover"
                 />
+                <button className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-opacity">
+                  <ChevronLeft className="w-6 h-6 text-gray-900" />
+                </button>
+                <button className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-opacity">
+                  <ChevronRight className="w-6 h-6 text-gray-900" />
+                </button>
               </div>
             )}
 
-            <div className="bg-white rounded-2xl border border-gray-200 p-8 mb-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">
-                About {creatorPage.title || creatorPage.username}
-              </h2>
-              <p className="text-gray-600 mb-4">{creatorPage.tagline}</p>
-
-              {creatorPage.description && (
-                <>
-                  <h3 className="font-semibold text-gray-900 mb-2">Hello! Thanks for stopping by!</h3>
-                  <div className="text-gray-700 leading-relaxed whitespace-pre-wrap mb-6">
-                    {creatorPage.description}
-                  </div>
-                </>
-              )}
-
-              {(creatorPage.social_website || creatorPage.social_twitter || creatorPage.social_instagram) && (
-                <div className="flex gap-3 mb-6">
-                  {creatorPage.social_website && (
-                    <a
-                      href={creatorPage.social_website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
-                    >
-                      <Globe className="w-4 h-4 text-gray-600" />
-                    </a>
-                  )}
-                </div>
-              )}
-
-              <div className="border-t border-gray-200 pt-6">
-                <h3 className="text-base font-semibold text-gray-900 mb-4">Recent supporters</h3>
-                {recentSupporters.length > 0 ? (
-                  <div className="space-y-4">
-                    {recentSupporters.map((supporter, idx) => {
-                      const displayName = supporter.is_anonymous ? 'Someone' : supporter.supporter_name;
-                      return (
-                        <div key={idx} className="flex items-start gap-3">
-                          <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center flex-shrink-0">
-                            <span className="text-orange-600 text-sm font-semibold">
-                              {displayName.charAt(0).toUpperCase()}
-                            </span>
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <p className="text-sm text-gray-900">
-                              <span className="font-medium">{displayName}</span>
-                              {supporter.message ? (
-                                <span className="text-gray-600"> {supporter.message}</span>
-                              ) : (
-                                <span className="text-gray-600"> is now a member.</span>
-                              )}
-                            </p>
-                          </div>
-                          <button className="text-gray-400 hover:text-gray-600">
-                            <MoreHorizontal className="w-4 h-4" />
-                          </button>
-                        </div>
-                      );
-                    })}
-                  </div>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center">
+                {creatorPage.profile_image_url ? (
+                  <img
+                    src={creatorPage.profile_image_url}
+                    alt={creatorPage.username}
+                    className="w-12 h-12 rounded-full object-cover"
+                  />
                 ) : (
-                  <p className="text-sm text-gray-500">Be the first to support!</p>
+                  <Heart className="w-6 h-6 text-gray-400" />
                 )}
+              </div>
+              <div>
+                <p className="text-sm text-gray-900">
+                  <span className="font-semibold">{creatorPage.username}</span> for {creatorPage.tagline || 'a good cause'}
+                </p>
               </div>
             </div>
 
-            {causes.length > 0 && (
-              <div className="bg-white rounded-2xl border border-gray-200 p-8 mb-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-6">My Causes</h2>
-                <div className="space-y-6">
-                  {causes.map((cause) => (
-                    <div key={cause.id} className="border-b border-gray-200 last:border-0 pb-6 last:pb-0">
-                      <div className="mb-4 rounded-xl overflow-hidden bg-gray-100">
-                        {cause.image_url ? (
-                          <img
-                            src={cause.image_url}
-                            alt={cause.title}
-                            className="w-full h-48 object-cover"
-                          />
-                        ) : (
-                          <div className="w-full h-48 flex items-center justify-center text-gray-400">
-                            <Heart className="w-12 h-12" />
-                          </div>
-                        )}
-                      </div>
-                      <h4 className="font-bold text-gray-900 text-base mb-2">{cause.title}</h4>
-                      {cause.description && (
-                        <p className="text-sm text-gray-600 mb-4">{cause.description}</p>
-                      )}
-                      {cause.target_amount > 0 && (
-                        <div className="mb-4">
-                          <div className="flex justify-between text-sm mb-2">
-                            <span className="text-gray-600">${cause.current_amount.toLocaleString()} raised</span>
-                            <span className="font-medium text-gray-900">${cause.target_amount.toLocaleString()} goal</span>
-                          </div>
-                          <div className="w-full bg-gray-200 rounded-full h-2">
-                            <div
-                              className="bg-yellow-400 h-2 rounded-full transition-all"
-                              style={{ width: `${Math.min((cause.current_amount / cause.target_amount) * 100, 100)}%` }}
-                            ></div>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
+            <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 rounded-full px-3 py-1.5 mb-6">
+              <Shield className="w-4 h-4 text-blue-600" />
+              <span className="text-sm font-medium text-blue-900">Donation protected</span>
+            </div>
+
+            {creatorPage.description && (
+              <div className="text-gray-700 leading-relaxed mb-8 whitespace-pre-wrap">
+                {creatorPage.description}
               </div>
             )}
+
+            <div className="mb-8">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-2xl font-bold text-gray-900">Updates <span className="ml-2 text-sm font-medium text-gray-600 bg-gray-100 px-2 py-1 rounded-full">2</span></h2>
+              </div>
+              <div className="border border-gray-200 rounded-lg p-6 mb-4">
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center text-white font-bold flex-shrink-0">
+                    {creatorPage.username.charAt(0).toUpperCase()}
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="font-semibold text-gray-900">{creatorPage.username}</span>
+                      <span className="text-gray-500">·</span>
+                      <span className="text-sm text-gray-600">Organizer</span>
+                    </div>
+                    <p className="text-sm text-gray-500">Apr 15, 2021</p>
+                  </div>
+                </div>
+                <p className="text-gray-700 leading-relaxed mb-4">
+                  We are over 75% of the way there!! Thanks everyone who has graciously donated so far. Please consider giving if you can.
+                </p>
+                <p className="text-gray-700 leading-relaxed mb-4">
+                  There is another way you can help. We will be physically picking up trash along the banks of the Charles River on Saturday April 24th from 11-2PM. Lunch will be provided. Email me at [email redacted] for more details!
+                </p>
+                <button className="text-sm text-gray-700 font-medium hover:text-gray-900 mb-4">
+                  See 1 more
+                </button>
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => setIsDonationModalOpen(true)}
+                    className="flex-1 py-2 px-4 border-2 border-gray-300 rounded-full font-medium text-gray-900 hover:bg-gray-50 transition-colors"
+                  >
+                    Donate
+                  </button>
+                  <button className="flex-1 py-2 px-4 border-2 border-gray-300 rounded-full font-medium text-gray-900 hover:bg-gray-50 transition-colors">
+                    Share
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className="mb-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">Organizer</h2>
+              <div className="flex flex-col md:flex-row gap-8 mb-8">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                    {creatorPage.profile_image_url ? (
+                      <img
+                        src={creatorPage.profile_image_url}
+                        alt={creatorPage.username}
+                        className="w-12 h-12 rounded-full object-cover"
+                      />
+                    ) : (
+                      <Heart className="w-6 h-6 text-gray-400" />
+                    )}
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-bold text-gray-900 flex items-center gap-2">
+                      {creatorPage.username}
+                      <span className="text-gray-400">→</span>
+                    </h3>
+                    <p className="text-sm text-gray-600">Organizer</p>
+                    <p className="text-sm text-gray-600">Boston, MA</p>
+                    <button className="mt-3 px-6 py-2 border-2 border-gray-300 rounded-full font-medium text-gray-900 hover:bg-gray-50 transition-colors text-sm">
+                      Contact
+                    </button>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                    <Heart className="w-6 h-6 text-gray-400" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-gray-900">{creatorPage.tagline || 'Beneficiary'}</h3>
+                    <p className="text-sm text-gray-600">Beneficiary</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mb-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">Words of support <span className="ml-2 text-sm font-medium text-gray-600 bg-gray-100 px-2 py-1 rounded-full">1</span></h2>
+              <p className="text-gray-600 mb-6">Please donate to share words of support.</p>
+              {recentSupporters.length > 0 && (
+                <div className="space-y-4 mb-6">
+                  {recentSupporters.slice(0, 1).map((supporter, idx) => {
+                    const displayName = supporter.is_anonymous ? 'Someone' : supporter.supporter_name;
+                    return (
+                      <div key={idx} className="flex items-start gap-4">
+                        <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                          <span className="text-gray-600 text-sm font-semibold">
+                            {displayName.charAt(0).toUpperCase()}
+                          </span>
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-bold text-gray-900">{displayName}</h3>
+                          <p className="text-sm text-gray-600 mb-2">${supporter.amount} · 5 yrs</p>
+                          {supporter.message && (
+                            <p className="text-gray-700">{supporter.message}</p>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+
+            <div className="border-t border-gray-200 pt-8 mb-8">
+              <p className="text-sm text-gray-600 mb-4">Created March 20th, 2021 · <a href="#" className="text-blue-600 hover:underline">Non-Profits & Charities</a></p>
+            </div>
+
+            <button className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
+              <Flag className="w-4 h-4" />
+              <span className="text-sm font-medium">Report fundraiser</span>
+            </button>
           </div>
 
-          <div className="lg:w-96 flex-shrink-0">
-            {tiers.length > 0 && activeTab === 'home' && (
-              <div className="bg-white rounded-2xl border border-gray-200 p-6 mb-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-1">Become a member</h3>
-                <p className="text-sm text-gray-600 mb-6">
-                  {tiers[0]?.benefits.length || 0} members • {tiers.length} exclusive posts
-                </p>
-                <div className="space-y-4">
-                  {tiers.map((tier) => (
-                    <div key={tier.id} className="border border-gray-200 rounded-xl p-4">
-                      <div className="flex items-center gap-2 mb-3">
-                        <div className="w-12 h-12 bg-gray-900 rounded-lg flex items-center justify-center text-white text-xl font-bold">
-                          {tier.name.substring(0, 2).toUpperCase()}
-                        </div>
-                        <div>
-                          <h4 className="font-semibold text-gray-900">{tier.name}</h4>
-                          <p className="text-sm font-semibold text-gray-900">
-                            ${tier.amount}
-                            <span className="text-gray-600 font-normal">/month</span>
-                          </p>
-                        </div>
-                      </div>
-                      <button
-                        onClick={() => setIsDonationModalOpen(true)}
-                        className="w-full bg-orange-400 hover:bg-orange-500 text-white font-medium py-2.5 px-4 rounded-lg transition-colors mb-3"
-                      >
-                        Join
-                      </button>
-                      <div className="flex items-start gap-2 text-xs text-gray-600 mb-3">
-                        <Info className="w-4 h-4 flex-shrink-0 mt-0.5" />
-                        <span>Includes discord benefits</span>
-                      </div>
-                      <p className="text-sm text-gray-700 leading-relaxed mb-3">
-                        {tier.description}
-                      </p>
-                      {tier.benefits && tier.benefits.length > 0 && (
-                        <ul className="space-y-1.5">
-                          {tier.benefits.map((benefit, idx) => (
-                            <li key={idx} className="flex items-start gap-2 text-sm text-gray-700">
-                              <span className="text-gray-400 mt-0.5">•</span>
-                              <span>{benefit}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                      <button className="mt-3 text-sm text-gray-600 hover:text-gray-900 font-medium">
-                        See more ∨
-                      </button>
-                    </div>
-                  ))}
-                </div>
+          <div className="lg:w-96 flex-shrink-0 lg:sticky lg:top-24 self-start">
+            <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+              <div className="flex items-center justify-center mb-6">
+                <svg className="w-24 h-24 transform -rotate-90">
+                  <circle
+                    cx="48"
+                    cy="48"
+                    r="40"
+                    fill="none"
+                    stroke="#E5E7EB"
+                    strokeWidth="8"
+                  />
+                  <circle
+                    cx="48"
+                    cy="48"
+                    r="40"
+                    fill="none"
+                    stroke="#02A95C"
+                    strokeWidth="8"
+                    strokeDasharray={`${progressPercentage * 2.51} 251`}
+                    strokeLinecap="round"
+                  />
+                </svg>
               </div>
-            )}
 
-            <div className="bg-white rounded-2xl border border-gray-200 p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-1 flex items-center gap-2">
-                Support {creatorPage.title || creatorPage.username}
-                <Info className="w-4 h-4 text-gray-400" />
-              </h3>
-              <div className="mt-6">
-                <div className="grid grid-cols-2 gap-3 mb-4">
-                  <button
-                    onClick={() => { setCustomAmount('5'); setSelectedAmount(0); }}
-                    className={`py-4 px-4 rounded-lg font-medium text-sm transition-all border ${
-                      customAmount === '5'
-                        ? 'bg-orange-400 text-white border-orange-400'
-                        : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'
-                    }`}
-                  >
-                    ☕ Buy a Coffee
-                    <div className="text-xs mt-1">$5</div>
-                  </button>
-                  <button
-                    onClick={() => { setCustomAmount('10'); setSelectedAmount(0); }}
-                    className={`py-4 px-4 rounded-lg font-medium text-sm transition-all border ${
-                      customAmount === '10'
-                        ? 'bg-orange-400 text-white border-orange-400'
-                        : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'
-                    }`}
-                  >
-                    🍕 Buy a Meal
-                    <div className="text-xs mt-1">$10</div>
-                  </button>
-                  <button
-                    onClick={() => { setCustomAmount('15'); setSelectedAmount(0); }}
-                    className={`py-4 px-4 rounded-lg font-medium text-sm transition-all border ${
-                      customAmount === '15'
-                        ? 'bg-orange-400 text-white border-orange-400'
-                        : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'
-                    }`}
-                  >
-                    ❤️ Kindness Gift
-                    <div className="text-xs mt-1">$15</div>
-                  </button>
-                  <button
-                    onClick={() => { setCustomAmount('25'); setSelectedAmount(0); }}
-                    className={`py-4 px-4 rounded-lg font-medium text-sm transition-all border ${
-                      customAmount === '25'
-                        ? 'bg-orange-400 text-white border-orange-400'
-                        : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'
-                    }`}
-                  >
-                    🎨 Supplies / Equipment
-                    <div className="text-xs mt-1">$25</div>
-                  </button>
-                </div>
+              <div className="text-center mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 mb-1">
+                  ${raisedAmount.toLocaleString()} <span className="text-lg font-normal text-gray-600">raised of {goalAmount.toLocaleString()}</span>
+                </h2>
+                <p className="text-gray-600">{donationCount} donations</p>
+              </div>
 
-                <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Or enter custom amount
-                  </label>
-                  <div className="relative">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">$</span>
-                    <input
-                      type="number"
-                      value={customAmount}
-                      onChange={(e) => { setCustomAmount(e.target.value); setSelectedAmount(0); }}
-                      placeholder="0"
-                      min="1"
-                      className="w-full pl-8 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent text-sm"
-                    />
-                  </div>
-                </div>
+              <button
+                onClick={() => setIsDonationModalOpen(true)}
+                className="w-full bg-[#B8E986] hover:bg-[#A8D976] text-gray-900 font-bold py-4 px-6 rounded-lg transition-colors mb-3"
+              >
+                Donate now
+              </button>
 
-                <input
-                  type="text"
-                  value={supportName}
-                  onChange={(e) => setSupportName(e.target.value)}
-                  placeholder="Name or @yoursocial"
-                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent text-sm mb-3"
-                />
+              <button className="w-full bg-[#005C30] hover:bg-[#004A26] text-white font-bold py-4 px-6 rounded-lg transition-colors mb-6 flex items-center justify-center gap-2">
+                <Share2 className="w-5 h-5" />
+                Share
+              </button>
 
-                <textarea
-                  value={supportMessage}
-                  onChange={(e) => setSupportMessage(e.target.value)}
-                  placeholder="Say something nice..."
-                  rows={3}
-                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent text-sm resize-none mb-3"
-                />
+              <div className="space-y-4">
+                {recentSupporters.length > 0 ? (
+                  recentSupporters.map((supporter, idx) => {
+                    const displayName = supporter.is_anonymous ? 'Someone' : supporter.supporter_name;
+                    return (
+                      <div key={idx} className="flex items-start gap-3 py-2">
+                        <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                          <Heart className="w-5 h-5 text-gray-400" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-bold text-gray-900">{displayName}</p>
+                          <p className="text-sm text-gray-600">${supporter.amount} · 5 yrs</p>
+                        </div>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <>
+                    {['Annahid Beheshti', 'Chris Jordan', 'Olya Kudriavtseva', 'Catherine Sobchuk', 'Katie Larkin'].map((name, idx) => (
+                      <div key={idx} className="flex items-start gap-3 py-2">
+                        <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                          <Heart className="w-5 h-5 text-gray-400" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-bold text-gray-900">{name}</p>
+                          <p className="text-sm text-gray-600">${[20, 10, 150, 50, 50][idx]} · 5 yrs</p>
+                        </div>
+                      </div>
+                    ))}
+                  </>
+                )}
+              </div>
 
-                <div className="flex items-center gap-2 mb-4">
-                  <Coffee className="w-4 h-4 text-gray-600" />
-                  <label className="flex items-center gap-2 cursor-pointer text-sm text-gray-700">
-                    <input
-                      type="checkbox"
-                      checked={makeMonthly}
-                      onChange={(e) => setMakeMonthly(e.target.checked)}
-                      className="w-4 h-4 text-orange-400 border-gray-300 rounded focus:ring-orange-400"
-                    />
-                    Make this monthly
-                    <Info className="w-4 h-4 text-gray-400" />
-                  </label>
-                </div>
-
-                <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
-                  <div className="flex items-center justify-between mb-3">
-                    <div>
-                      <p className="text-sm font-medium text-gray-900">Tip Very Kind</p>
-                      <p className="text-xs text-gray-600 mt-0.5">Support our work and operations</p>
-                    </div>
-                    <Heart className="w-5 h-5 text-red-400" />
-                  </div>
-                  <div className="flex gap-2 mb-3">
-                    <button
-                      onClick={() => setVeryKindTip('1')}
-                      className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all border ${
-                        veryKindTip === '1'
-                          ? 'bg-red-400 text-white border-red-400'
-                          : 'bg-white text-gray-700 border-gray-300 hover:border-gray-400'
-                      }`}
-                    >
-                      $1
-                    </button>
-                    <button
-                      onClick={() => setVeryKindTip('2')}
-                      className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all border ${
-                        veryKindTip === '2'
-                          ? 'bg-red-400 text-white border-red-400'
-                          : 'bg-white text-gray-700 border-gray-300 hover:border-gray-400'
-                      }`}
-                    >
-                      $2
-                    </button>
-                    <button
-                      onClick={() => setVeryKindTip('5')}
-                      className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all border ${
-                        veryKindTip === '5'
-                          ? 'bg-red-400 text-white border-red-400'
-                          : 'bg-white text-gray-700 border-gray-300 hover:border-gray-400'
-                      }`}
-                    >
-                      $5
-                    </button>
-                  </div>
-                  <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm">$</span>
-                    <input
-                      type="number"
-                      value={veryKindTip}
-                      onChange={(e) => setVeryKindTip(e.target.value)}
-                      placeholder="Custom amount"
-                      min="0"
-                      className="w-full pl-7 pr-3 py-2 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent text-sm"
-                    />
-                  </div>
-                </div>
-
-                <button
-                  onClick={() => setIsDonationModalOpen(true)}
-                  className="w-full bg-orange-400 hover:bg-orange-500 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
-                >
-                  Support ${displayAmount}{veryKindTip && parseFloat(veryKindTip) > 0 ? ` + $${parseFloat(veryKindTip)} tip` : ''}
+              <div className="flex gap-3 mt-6 pt-6 border-t border-gray-200">
+                <button className="flex-1 py-2 px-4 border-2 border-gray-300 rounded-full font-medium text-gray-900 hover:bg-gray-50 transition-colors text-sm">
+                  See all
+                </button>
+                <button className="flex-1 py-2 px-4 border-2 border-gray-300 rounded-full font-medium text-gray-900 hover:bg-gray-50 transition-colors text-sm flex items-center justify-center gap-1">
+                  ★ See top
                 </button>
               </div>
             </div>
@@ -662,20 +503,17 @@ export default function CreatorProfilePage({
         </div>
       </main>
 
-      <footer className="border-t border-gray-200 bg-white mt-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-center gap-6 text-sm text-gray-600">
-            <button className="hover:text-gray-900">🌐 English</button>
-            <button className="hover:text-gray-900">Privacy</button>
-            <button className="hover:text-gray-900">Terms</button>
-            <button className="hover:text-gray-900">Report</button>
+      <footer className="border-t border-gray-200 bg-gray-50 mt-16">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex items-center justify-center gap-6 text-sm text-gray-600 flex-wrap">
+            <a href="#" className="hover:text-gray-900">About</a>
+            <a href="#" className="hover:text-gray-900">Contact</a>
+            <a href="#" className="hover:text-gray-900">Privacy</a>
+            <a href="#" className="hover:text-gray-900">Terms</a>
+            <a href="#" className="hover:text-gray-900">Help Center</a>
           </div>
-          <p className="text-center text-sm text-gray-600 mt-4">
-            Start your{' '}
-            <span className="text-orange-500 hover:text-orange-600 font-medium cursor-pointer">
-              Buy Me a Coffee page
-            </span>{' '}
-            →
+          <p className="text-center text-sm text-gray-600 mt-6">
+            © 2025 Very Kind
           </p>
         </div>
       </footer>
