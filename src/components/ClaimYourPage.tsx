@@ -33,7 +33,7 @@ export default function ClaimYourPage({ onNavigateToAuth, onNavigateToProfileSet
           </div>
           <button
             onClick={handleClaim}
-            className="bg-gray-900 text-white px-12 py-4 rounded-full text-xl font-bold hover:bg-gray-800 transition-colors"
+            className="bg-[#E07855] text-white px-12 py-4 rounded-full text-xl font-bold hover:bg-[#D06845] transition-colors"
           >
             Claim
           </button>

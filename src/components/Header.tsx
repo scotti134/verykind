@@ -177,7 +177,7 @@ export default function Header({ onNavigateToAuth, onNavigateToCategory, onNavig
                 </button>
                 <button
                   onClick={onNavigateToAuth}
-                  className="px-6 py-2.5 bg-[#C97132] text-white rounded-md hover:bg-[#B5651F] transition-all font-medium text-base whitespace-nowrap"
+                  className="px-6 py-2.5 bg-[#E07855] text-white rounded-md hover:bg-[#D06845] transition-all font-medium text-base whitespace-nowrap"
                 >
                   Create Your Page
                 </button>
