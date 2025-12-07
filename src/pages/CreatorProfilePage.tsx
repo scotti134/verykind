@@ -415,29 +415,6 @@ export default function CreatorProfilePage({
 
           <div className="lg:w-96 flex-shrink-0 lg:sticky lg:top-24 self-start">
             <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
-              <div className="flex items-center justify-center mb-6">
-                <svg className="w-24 h-24 transform -rotate-90">
-                  <circle
-                    cx="48"
-                    cy="48"
-                    r="40"
-                    fill="none"
-                    stroke="#E5E7EB"
-                    strokeWidth="8"
-                  />
-                  <circle
-                    cx="48"
-                    cy="48"
-                    r="40"
-                    fill="none"
-                    stroke="#02A95C"
-                    strokeWidth="8"
-                    strokeDasharray={`${progressPercentage * 2.51} 251`}
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </div>
-
               <div className="text-center mb-6">
                 <h2 className="text-2xl font-bold text-gray-900 mb-1">
                   ${raisedAmount.toLocaleString()} <span className="text-lg font-normal text-gray-600">raised of {goalAmount.toLocaleString()}</span>
@@ -452,7 +429,7 @@ export default function CreatorProfilePage({
                 Donate now
               </button>
 
-              <button className="w-full bg-[#005C30] hover:bg-[#004A26] text-white font-bold py-4 px-6 rounded-full transition-colors mb-6 flex items-center justify-center gap-2">
+              <button className="w-full bg-[#D9986B] hover:bg-[#C97132] text-white font-bold py-4 px-6 rounded-full transition-colors mb-6 flex items-center justify-center gap-2">
                 <Share2 className="w-5 h-5" />
                 Share
               </button>
