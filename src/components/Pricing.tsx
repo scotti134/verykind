@@ -54,10 +54,12 @@ export default function Pricing({ onNavigateToAuth }: PricingProps) {
               <div className="text-center">
                 <button
                   onClick={onNavigateToAuth}
-                  className="w-full sm:w-auto px-12 py-4 bg-[#E07855] text-white text-lg font-semibold rounded-full hover:bg-[#D06845] transition-all transform hover:scale-105 shadow-lg inline-flex items-center justify-center gap-2"
+                  className="w-full sm:w-auto px-12 py-4 bg-[#E07855] text-white text-lg font-semibold rounded-full hover:bg-[#D06845] transition-all transform hover:scale-105 shadow-lg inline-flex items-center justify-center gap-3"
                 >
                   Start your FREE Page
-                  <ArrowRight className="w-5 h-5" />
+                  <span className="bg-white/20 rounded-full p-1.5 flex items-center justify-center">
+                    <ArrowRight className="w-4 h-4" />
+                  </span>
                 </button>
                 <p className="text-gray-500 mt-4 text-sm">
                   No monthly fees. No setup costs. Start earning from day one.
