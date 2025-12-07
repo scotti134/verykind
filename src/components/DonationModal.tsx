@@ -121,9 +121,9 @@ export default function DonationModal({
           </div>
 
           <div className="mb-8">
-            <h3 className="text-base font-bold text-gray-900 mb-2">Tip GoFundMe services</h3>
+            <h3 className="text-base font-bold text-gray-900 mb-2">Tip Very Kind services</h3>
             <p className="text-sm text-gray-600 mb-4">
-              GoFundMe has a 0% platform fee for organizers and relies primarily on the generosity of donors like you to operate our service.
+              Very Kind has a 0% platform fee for organizers and relies primarily on the generosity of donors like you to operate our service.
             </p>
             <div className="flex gap-3">
               {[15, 20, 25].map((tip) => (
@@ -357,7 +357,7 @@ export default function DonationModal({
                 className="w-4 h-4 mt-0.5 border-2 border-gray-300 rounded accent-green-600"
               />
               <span className="text-gray-900 text-sm leading-tight">
-                Get occasional marketing updates from GoFundMe. You may unsubscribe at any time.
+                Get occasional marketing updates from Very Kind. You may unsubscribe at any time.
               </span>
             </label>
 
@@ -382,7 +382,7 @@ export default function DonationModal({
                 <span>CA${amount.toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-sm text-gray-700">
-                <span>GoFundMe tip</span>
+                <span>Very Kind tip</span>
                 <span>CA${platformTip.toFixed(2)}</span>
               </div>
             </div>
