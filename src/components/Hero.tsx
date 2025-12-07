@@ -36,9 +36,10 @@ export default function Hero({ onNavigateToAuth, onNavigateToExplore, onNavigate
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <button
             onClick={handleStartPage}
-            className="px-8 py-3.5 bg-[#FFD700] text-gray-900 rounded-full font-medium text-base hover:bg-[#FFC700] transition-colors shadow-lg border-2 border-transparent whitespace-nowrap"
+            className="px-8 py-3.5 bg-[#E07855] text-white rounded-full font-medium text-base hover:bg-[#D06845] transition-colors shadow-lg border-2 border-transparent whitespace-nowrap flex items-center gap-2"
           >
-            Start My Page, It's Free
+            Start your FREE Page
+            <ArrowRight className="w-5 h-5" />
           </button>
           <button
             onClick={onNavigateToExplore}

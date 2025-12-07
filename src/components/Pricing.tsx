@@ -1,4 +1,4 @@
-import { Check } from 'lucide-react';
+import { Check, ArrowRight } from 'lucide-react';
 
 interface PricingProps {
   onNavigateToAuth: () => void;
@@ -54,9 +54,10 @@ export default function Pricing({ onNavigateToAuth }: PricingProps) {
               <div className="text-center">
                 <button
                   onClick={onNavigateToAuth}
-                  className="w-full sm:w-auto px-12 py-4 bg-[#C97132] text-white text-lg font-semibold rounded-full hover:bg-[#B5651F] transition-all transform hover:scale-105 shadow-lg"
+                  className="w-full sm:w-auto px-12 py-4 bg-[#E07855] text-white text-lg font-semibold rounded-full hover:bg-[#D06845] transition-all transform hover:scale-105 shadow-lg inline-flex items-center justify-center gap-2"
                 >
-                  Start Your Page - It's Free
+                  Start your FREE Page
+                  <ArrowRight className="w-5 h-5" />
                 </button>
                 <p className="text-gray-500 mt-4 text-sm">
                   No monthly fees. No setup costs. Start earning from day one.

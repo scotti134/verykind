@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
-import { Heart, DollarSign, Users, Settings, Share2, Eye, Plus, X, Home, Grid, Store, Zap, CreditCard, Edit2, Menu, FileText, Star, Rocket, Building2, Megaphone, Microscope, HeartPulse, TrendingUp, GraduationCap, Lightbulb, DollarSign as MoneyIcon, Brain, BookOpen, Target, Sparkles, Leaf } from 'lucide-react';
+import { Heart, DollarSign, Users, Settings, Share2, Eye, Plus, X, Home, Grid, Store, Zap, CreditCard, Edit2, Menu, FileText, Star, Rocket, Building2, Megaphone, Microscope, HeartPulse, TrendingUp, GraduationCap, Lightbulb, DollarSign as MoneyIcon, Brain, BookOpen, Target, Sparkles, Leaf, ArrowRight } from 'lucide-react';
 import ImageUpload from '../components/ImageUpload';
 import GalleryUpload from '../components/GalleryUpload';
 import ShopItemForm from '../components/ShopItemForm';
@@ -643,9 +643,10 @@ export default function CreatorDashboard({
 
           <button
             onClick={() => setSetupStep('basic-info')}
-            className="w-full bg-[#FFD700] hover:bg-[#FFC700] text-gray-900 font-semibold py-4 px-6 rounded-lg transition-colors shadow-lg"
+            className="w-full bg-[#E07855] hover:bg-[#D06845] text-white font-semibold py-4 px-6 rounded-lg transition-colors shadow-lg flex items-center justify-center gap-2"
           >
-            Start my page it's free
+            Start your FREE Page
+            <ArrowRight className="w-5 h-5" />
           </button>
         </div>
       </div>
