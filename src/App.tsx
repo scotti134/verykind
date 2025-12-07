@@ -6,7 +6,6 @@ import NewsSection from './components/NewsSection';
 import FeaturedCreators from './components/FeaturedCreators';
 import RecurringSupport from './components/RecurringSupport';
 import OneTimeSupport from './components/OneTimeSupport';
-import MembershipTiers from './components/MembershipTiers';
 import HowItWorks from './components/HowItWorks';
 import ImpactSection from './components/ImpactSection';
 import Pricing from './components/Pricing';
@@ -182,7 +181,6 @@ function App() {
           <ClaimYourPage onNavigateToAuth={navigateToAuth} onNavigateToProfileSetup={navigateToProfileSetup} />
           <RecurringSupport />
           <OneTimeSupport />
-          <MembershipTiers />
           <HowItWorks />
           <NewsSection />
           <ImpactSection />
