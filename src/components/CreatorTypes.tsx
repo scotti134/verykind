@@ -213,7 +213,7 @@ export default function CreatorTypes({ onNavigateToCreator }: CreatorTypesProps)
           </p>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-3 mb-16">
+        <div className="flex flex-wrap justify-center gap-2 mb-16">
           {creatorTypes.map((type) => {
             const Icon = type.icon;
             const isSelected = selectedCategory === type.name;
@@ -221,16 +221,14 @@ export default function CreatorTypes({ onNavigateToCreator }: CreatorTypesProps)
               <button
                 key={type.name}
                 onClick={() => setSelectedCategory(type.name)}
-                className={`px-4 py-2.5 rounded-full font-semibold transition-all ${
+                className={`inline-flex items-center gap-2 px-5 py-2 rounded-full text-[15px] font-medium transition-all ${
                   isSelected
-                    ? 'bg-white border-2 border-gray-900 text-gray-900 shadow-sm'
-                    : 'bg-[#F5EFE7] text-gray-900 hover:bg-[#EDE7DD]'
+                    ? 'bg-white border-2 border-black text-black'
+                    : 'bg-[#F3EBE1] text-black hover:bg-[#E8DED1]'
                 }`}
               >
-                <span className="flex items-center gap-2">
-                  <Icon className="w-4 h-4" />
-                  <span className="text-sm">{type.name}</span>
-                </span>
+                <Icon className="w-[18px] h-[18px]" />
+                <span>{type.name}</span>
               </button>
             );
           })}
