@@ -1,18 +1,18 @@
 import { useState } from 'react';
-import { Headphones, Palette, Pen, Scissors, Mic, Video, Smile, Music, Code, Users, Shield } from 'lucide-react';
+import { Heart, Bird, Sprout, Waves, Building2, Siren, BookOpen, Users, Sparkles, Shield, HeartHandshake } from 'lucide-react';
 
 const creatorTypes = [
-  { name: 'Animal Rescue & Shelters', icon: Headphones, highlighted: false },
-  { name: 'Wildlife Protection', icon: Palette, highlighted: false },
-  { name: 'Farm Animal Sanctuaries', icon: Pen, highlighted: false },
-  { name: 'Ocean & Water Protection', icon: Scissors, highlighted: false },
-  { name: 'Nonprofits', icon: Mic, highlighted: false },
-  { name: 'Emergency Causes', icon: Video, highlighted: false },
-  { name: 'Education & Awareness', icon: Smile, highlighted: false },
-  { name: 'Volunteers & Field Workers', icon: Music, highlighted: false },
-  { name: 'Kind Acts', icon: Code, highlighted: false },
+  { name: 'Animal Rescue & Shelters', icon: Heart, highlighted: false },
+  { name: 'Wildlife Protection', icon: Bird, highlighted: false },
+  { name: 'Farm Animal Sanctuaries', icon: Sprout, highlighted: false },
+  { name: 'Ocean & Water Protection', icon: Waves, highlighted: false },
+  { name: 'Nonprofits', icon: Building2, highlighted: false },
+  { name: 'Emergency Causes', icon: Siren, highlighted: false },
+  { name: 'Education & Awareness', icon: BookOpen, highlighted: false },
+  { name: 'Volunteers & Field Workers', icon: Users, highlighted: false },
+  { name: 'Kind Acts', icon: Sparkles, highlighted: false },
   { name: 'Veterans', icon: Shield, highlighted: false },
-  { name: 'Community Care', icon: Users, highlighted: true }
+  { name: 'Community Care', icon: HeartHandshake, highlighted: true }
 ];
 
 const creatorExamples: { [key: string]: { image: string; alt: string; username: string }[] } = {
@@ -221,15 +221,15 @@ export default function CreatorTypes({ onNavigateToCreator }: CreatorTypesProps)
               <button
                 key={type.name}
                 onClick={() => setSelectedCategory(type.name)}
-                className={`px-6 py-3 rounded-full text-lg font-semibold transition-all ${
+                className={`px-4 py-2.5 rounded-full font-semibold transition-all ${
                   isSelected
-                    ? 'bg-white border-3 border-blue-600 text-gray-900 shadow-md hover:shadow-lg'
-                    : 'bg-white text-gray-900 hover:bg-gray-50 shadow-sm'
+                    ? 'bg-white border-2 border-gray-900 text-gray-900 shadow-sm'
+                    : 'bg-[#F5EFE7] text-gray-900 hover:bg-[#EDE7DD]'
                 }`}
               >
                 <span className="flex items-center gap-2">
-                  <Icon className="w-5 h-5" />
-                  {type.name}
+                  <Icon className="w-4 h-4" />
+                  <span className="text-sm">{type.name}</span>
                 </span>
               </button>
             );
