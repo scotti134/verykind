@@ -275,7 +275,7 @@ export default function CreatorProfilePage({
                 <img
                   src={displayImages[currentImageIndex]}
                   alt="Cover"
-                  className="w-full h-[600px] object-cover"
+                  className="w-full h-[450px] object-cover"
                 />
                 {displayImages.length > 1 && (
                   <>
