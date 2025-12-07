@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Headphones, Palette, Pen, Scissors, Mic, Video, Smile, Music, Code, Users } from 'lucide-react';
+import { Headphones, Palette, Pen, Scissors, Mic, Video, Smile, Music, Code, Users, Shield } from 'lucide-react';
 
 const creatorTypes = [
   { name: 'Animal Rescue & Shelters', icon: Headphones, highlighted: false },
@@ -11,6 +11,7 @@ const creatorTypes = [
   { name: 'Education & Awareness', icon: Smile, highlighted: false },
   { name: 'Volunteers & Field Workers', icon: Music, highlighted: false },
   { name: 'Kind Acts', icon: Code, highlighted: false },
+  { name: 'Veterans', icon: Shield, highlighted: false },
   { name: 'Community Care', icon: Users, highlighted: true }
 ];
 
@@ -156,6 +157,23 @@ const creatorExamples: { [key: string]: { image: string; alt: string; username: 
       image: 'https://images.pexels.com/photos/6647029/pexels-photo-6647029.jpeg?auto=compress&cs=tinysrgb&w=600',
       alt: 'Kind Gestures',
       username: 'kindgestures'
+    }
+  ],
+  'Veterans': [
+    {
+      image: 'https://images.pexels.com/photos/5417270/pexels-photo-5417270.jpeg?auto=compress&cs=tinysrgb&w=600',
+      alt: 'Veterans Support',
+      username: 'veteranssupport'
+    },
+    {
+      image: 'https://images.pexels.com/photos/2855761/pexels-photo-2855761.jpeg?auto=compress&cs=tinysrgb&w=600',
+      alt: 'Military Veterans',
+      username: 'militaryveterans'
+    },
+    {
+      image: 'https://images.pexels.com/photos/6966/abstract-music-rock-bw.jpg?auto=compress&cs=tinysrgb&w=600',
+      alt: 'Veterans Care',
+      username: 'veteranscare'
     }
   ],
   'Community Care': [

@@ -32,7 +32,7 @@ interface ExplorePageProps {
 const categories: Category[] = [
   {
     name: 'People',
-    subcategories: ['Health', 'Education', 'Community', 'Human Rights']
+    subcategories: ['Health', 'Education', 'Community', 'Human Rights', 'Veterans']
   },
   {
     name: 'Animals',
