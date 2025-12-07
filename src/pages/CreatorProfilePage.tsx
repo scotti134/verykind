@@ -12,6 +12,7 @@ interface CreatorPage {
   description: string;
   profile_image_url: string;
   cover_image_url: string;
+  gallery_images: string[];
   tagline: string;
   social_twitter: string;
   social_instagram: string;
@@ -82,11 +83,16 @@ export default function CreatorProfilePage({
   const [supporterCount, setSupporterCount] = useState(0);
   const [veryKindTip, setVeryKindTip] = useState('');
   const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
     loadCreatorData();
     loadRecentSupporters();
   }, [creatorId]);
+
+  useEffect(() => {
+    setCurrentImageIndex(0);
+  }, [creatorPage?.id]);
 
   const loadCreatorData = async () => {
     setLoading(true);
@@ -102,6 +108,7 @@ export default function CreatorProfilePage({
         description: 'This is a sample creator profile. Sign up to create your own page!',
         profile_image_url: 'https://images.pexels.com/photos/3278215/pexels-photo-3278215.jpeg?auto=compress&cs=tinysrgb&w=400',
         cover_image_url: 'https://images.pexels.com/photos/1001682/pexels-photo-1001682.jpeg?auto=compress&cs=tinysrgb&w=1200',
+        gallery_images: [],
         tagline: 'Making a difference in the world',
         social_twitter: '',
         social_instagram: '',
@@ -215,6 +222,20 @@ export default function CreatorProfilePage({
   const donationCount = recentSupporters.length || 30;
   const progressPercentage = Math.min((raisedAmount / goalAmount) * 100, 100);
 
+  const displayImages = creatorPage.gallery_images && creatorPage.gallery_images.length > 0
+    ? creatorPage.gallery_images
+    : creatorPage.cover_image_url
+    ? [creatorPage.cover_image_url]
+    : [];
+
+  const handlePreviousImage = () => {
+    setCurrentImageIndex((prev) => (prev === 0 ? displayImages.length - 1 : prev - 1));
+  };
+
+  const handleNextImage = () => {
+    setCurrentImageIndex((prev) => (prev === displayImages.length - 1 ? 0 : prev + 1));
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
@@ -249,19 +270,42 @@ export default function CreatorProfilePage({
               {creatorPage.title || creatorPage.username}
             </h1>
 
-            {creatorPage.cover_image_url && (
+            {displayImages.length > 0 && (
               <div className="mb-6 rounded-xl overflow-hidden relative group">
                 <img
-                  src={creatorPage.cover_image_url}
+                  src={displayImages[currentImageIndex]}
                   alt="Cover"
-                  className="w-full h-96 object-cover"
+                  className="w-full h-[600px] object-cover"
                 />
-                <button className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-opacity">
-                  <ChevronLeft className="w-6 h-6 text-gray-900" />
-                </button>
-                <button className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-opacity">
-                  <ChevronRight className="w-6 h-6 text-gray-900" />
-                </button>
+                {displayImages.length > 1 && (
+                  <>
+                    <button
+                      onClick={handlePreviousImage}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                      <ChevronLeft className="w-6 h-6 text-gray-900" />
+                    </button>
+                    <button
+                      onClick={handleNextImage}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                      <ChevronRight className="w-6 h-6 text-gray-900" />
+                    </button>
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                      {displayImages.map((_, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => setCurrentImageIndex(idx)}
+                          className={`w-2 h-2 rounded-full transition-all ${
+                            idx === currentImageIndex
+                              ? 'bg-white w-8'
+                              : 'bg-white/60 hover:bg-white/80'
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  </>
+                )}
               </div>
             )}
 
