@@ -61,6 +61,7 @@ const subcategories = [
   'Education',
   'Community',
   'Human Rights',
+  'Veterans',
   'Wildlife Conservation',
   'Animal Rescue',
   'Pet Adoption',
