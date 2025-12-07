@@ -4,6 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { Check } from 'lucide-react';
 import CreatorNavigationBar from '../components/CreatorNavigationBar';
 import Footer from '../components/Footer';
+import DonationModal from '../components/DonationModal';
 
 interface MembershipTier {
   id: string;
@@ -40,6 +41,8 @@ export default function MembershipPage({
   const { user } = useAuth();
   const [tiers, setTiers] = useState<MembershipTier[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
+  const [selectedTier, setSelectedTier] = useState<MembershipTier | null>(null);
 
   useEffect(() => {
     loadMembershipTiers();
@@ -142,7 +145,13 @@ export default function MembershipPage({
                   <div className="text-sm text-gray-500 mb-4">
                     {tier.member_count} {tier.member_count === 1 ? 'member' : 'members'}
                   </div>
-                  <button className="w-full py-4 px-6 bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold rounded-xl transition-colors">
+                  <button
+                    onClick={() => {
+                      setSelectedTier(tier);
+                      setIsDonationModalOpen(true);
+                    }}
+                    className="w-full py-4 px-6 bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold rounded-xl transition-colors"
+                  >
                     Select tier
                   </button>
                 </div>
@@ -153,6 +162,20 @@ export default function MembershipPage({
       </main>
 
       <Footer />
+
+      {selectedTier && (
+        <DonationModal
+          isOpen={isDonationModalOpen}
+          onClose={() => {
+            setIsDonationModalOpen(false);
+            setSelectedTier(null);
+          }}
+          creatorName={creatorName}
+          amount={selectedTier.price}
+          platformTip={0}
+          isMonthly={true}
+        />
+      )}
     </div>
   );
 }

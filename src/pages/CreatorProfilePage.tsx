@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 import { Heart, Coffee, MoreHorizontal, Globe, Info } from 'lucide-react';
 import UserProfileDropdown from '../components/UserProfileDropdown';
+import DonationModal from '../components/DonationModal';
 
 interface CreatorPage {
   id: string;
@@ -80,6 +81,7 @@ export default function CreatorProfilePage({
   const [recentSupporters, setRecentSupporters] = useState<RecentSupporter[]>([]);
   const [supporterCount, setSupporterCount] = useState(0);
   const [veryKindTip, setVeryKindTip] = useState('');
+  const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
 
   useEffect(() => {
     loadCreatorData();
@@ -463,7 +465,10 @@ export default function CreatorProfilePage({
                           </p>
                         </div>
                       </div>
-                      <button className="w-full bg-orange-400 hover:bg-orange-500 text-white font-medium py-2.5 px-4 rounded-lg transition-colors mb-3">
+                      <button
+                        onClick={() => setIsDonationModalOpen(true)}
+                        className="w-full bg-orange-400 hover:bg-orange-500 text-white font-medium py-2.5 px-4 rounded-lg transition-colors mb-3"
+                      >
                         Join
                       </button>
                       <div className="flex items-start gap-2 text-xs text-gray-600 mb-3">
@@ -645,7 +650,10 @@ export default function CreatorProfilePage({
                   </div>
                 </div>
 
-                <button className="w-full bg-orange-400 hover:bg-orange-500 text-white font-semibold py-3 px-6 rounded-lg transition-colors">
+                <button
+                  onClick={() => setIsDonationModalOpen(true)}
+                  className="w-full bg-orange-400 hover:bg-orange-500 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+                >
                   Support ${displayAmount}{veryKindTip && parseFloat(veryKindTip) > 0 ? ` + $${parseFloat(veryKindTip)} tip` : ''}
                 </button>
               </div>
@@ -671,6 +679,16 @@ export default function CreatorProfilePage({
           </p>
         </div>
       </footer>
+
+      <DonationModal
+        isOpen={isDonationModalOpen}
+        onClose={() => setIsDonationModalOpen(false)}
+        creatorName={creatorPage.title || creatorPage.username}
+        amount={displayAmount}
+        platformTip={veryKindTip ? parseFloat(veryKindTip) : 0}
+        message={supportMessage}
+        isMonthly={makeMonthly}
+      />
     </div>
   );
 }
