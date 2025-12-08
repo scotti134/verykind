@@ -24,7 +24,7 @@ import ProfileSetupPage from './pages/ProfileSetupPage';
 type Page =
   | { type: 'home' }
   | { type: 'auth' }
-  | { type: 'news' }
+  | { type: 'fundraise' }
   | { type: 'explore' }
   | { type: 'category'; category: string; subcategory?: string }
   | { type: 'creator'; creatorId: string }
@@ -39,7 +39,7 @@ function App() {
 
   const navigateToHome = () => setCurrentPage({ type: 'home' });
   const navigateToAuth = () => setCurrentPage({ type: 'auth' });
-  const navigateToNews = () => setCurrentPage({ type: 'news' });
+  const navigateToFundraise = () => setCurrentPage({ type: 'fundraise' });
   const navigateToExplore = () => setCurrentPage({ type: 'explore' });
   const navigateToDashboard = () => setCurrentPage({ type: 'dashboard' });
   const navigateToProfileSetup = () => setCurrentPage({ type: 'profile-setup' });
@@ -68,7 +68,7 @@ function App() {
         <AuthPage onNavigateToDashboard={navigateToProfileSetup} />
       ) : currentPage.type === 'profile-setup' ? (
         <ProfileSetupPage onComplete={navigateToDashboard} onNavigateHome={navigateToHome} />
-      ) : currentPage.type === 'news' ? (
+      ) : currentPage.type === 'fundraise' ? (
         <div className="min-h-screen bg-white">
           <div className="relative">
             <div className="absolute top-0 left-0 right-0 z-50">
@@ -76,7 +76,7 @@ function App() {
                 onNavigateToAuth={navigateToAuth}
                 onNavigateToCategory={navigateToCategory}
                 onNavigateToDashboard={navigateToDashboard}
-                onNavigateToNews={navigateToNews}
+                onNavigateToFundraise={navigateToFundraise}
                 onNavigateHome={navigateToHome}
                 onNavigateToProfile={navigateToProfile}
               />
@@ -94,14 +94,14 @@ function App() {
           onNavigateToAuth={navigateToAuth}
           onNavigateToCategory={navigateToCategory}
           onNavigateToDashboard={navigateToDashboard}
-          onNavigateToNews={navigateToNews}
+          onNavigateToFundraise={navigateToFundraise}
         />
       ) : currentPage.type === 'explore' ? (
         <ExplorePage
           onNavigateHome={navigateToHome}
           onNavigateToAuth={navigateToAuth}
           onNavigateToDashboard={navigateToDashboard}
-          onNavigateToNews={navigateToNews}
+          onNavigateToFundraise={navigateToFundraise}
           onNavigateToCategory={navigateToCategory}
           onNavigateToCreator={navigateToCreator}
         />
@@ -113,7 +113,7 @@ function App() {
           onNavigateHome={navigateToHome}
           onNavigateToAuth={navigateToAuth}
           onNavigateToDashboard={navigateToDashboard}
-          onNavigateToNews={navigateToNews}
+          onNavigateToFundraise={navigateToFundraise}
           onNavigateToCategory={navigateToCategory}
         />
       ) : currentPage.type === 'creator' ? (
@@ -170,7 +170,7 @@ function App() {
                 onNavigateToAuth={navigateToAuth}
                 onNavigateToCategory={navigateToCategory}
                 onNavigateToDashboard={navigateToDashboard}
-                onNavigateToNews={navigateToNews}
+                onNavigateToFundraise={navigateToFundraise}
                 onNavigateHome={undefined}
                 onNavigateToProfile={navigateToProfile}
               />

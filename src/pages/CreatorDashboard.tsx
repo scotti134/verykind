@@ -41,7 +41,7 @@ interface CreatorDashboardProps {
   onNavigateToAuth: () => void;
   onNavigateToCategory: (category: string, subcategory?: string) => void;
   onNavigateToDashboard: () => void;
-  onNavigateToNews?: () => void;
+  onNavigateToFundraise?: () => void;
 }
 
 export default function CreatorDashboard({
@@ -50,7 +50,7 @@ export default function CreatorDashboard({
   onNavigateToAuth,
   onNavigateToCategory,
   onNavigateToDashboard,
-  onNavigateToNews
+  onNavigateToFundraise
 }: CreatorDashboardProps) {
   const { user, profile } = useAuth();
   const [loading, setLoading] = useState(true);

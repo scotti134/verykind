@@ -24,7 +24,7 @@ interface ExplorePageProps {
   onNavigateHome: () => void;
   onNavigateToAuth: () => void;
   onNavigateToDashboard: () => void;
-  onNavigateToNews: () => void;
+  onNavigateToFundraise: () => void;
   onNavigateToCategory: (category: string, subcategory?: string) => void;
   onNavigateToCreator: (creatorId: string) => void;
 }
@@ -48,7 +48,7 @@ export default function ExplorePage({
   onNavigateHome,
   onNavigateToAuth,
   onNavigateToDashboard,
-  onNavigateToNews,
+  onNavigateToFundraise,
   onNavigateToCategory,
   onNavigateToCreator
 }: ExplorePageProps) {

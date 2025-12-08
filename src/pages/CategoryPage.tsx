@@ -29,11 +29,11 @@ interface CategoryPageProps {
   onNavigateHome: () => void;
   onNavigateToAuth: () => void;
   onNavigateToDashboard: () => void;
-  onNavigateToNews: () => void;
+  onNavigateToFundraise: () => void;
   onNavigateToCategory: (category: string, subcategory?: string) => void;
 }
 
-export default function CategoryPage({ category, subcategory, onNavigateToCreator, onNavigateHome, onNavigateToAuth, onNavigateToDashboard, onNavigateToNews, onNavigateToCategory }: CategoryPageProps) {
+export default function CategoryPage({ category, subcategory, onNavigateToCreator, onNavigateHome, onNavigateToAuth, onNavigateToDashboard, onNavigateToFundraise, onNavigateToCategory }: CategoryPageProps) {
   const [creators, setCreators] = useState<Creator[]>([]);
   const [loading, setLoading] = useState(true);
 

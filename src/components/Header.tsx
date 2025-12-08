@@ -56,14 +56,15 @@ interface HeaderProps {
   onNavigateToAuth: () => void;
   onNavigateToCategory: (category: string, subcategory?: string) => void;
   onNavigateToDashboard: () => void;
-  onNavigateToNews?: () => void;
+  onNavigateToFundraise?: () => void;
   onNavigateHome?: () => void;
   onNavigateToProfile?: () => void;
 }
 
-export default function Header({ onNavigateToAuth, onNavigateToCategory, onNavigateToDashboard, onNavigateToNews, onNavigateHome, onNavigateToProfile }: HeaderProps) {
+export default function Header({ onNavigateToAuth, onNavigateToCategory, onNavigateToDashboard, onNavigateToFundraise, onNavigateHome, onNavigateToProfile }: HeaderProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isAboutOpen, setIsAboutOpen] = useState(false);
   const { user, signOut } = useAuth();
 
   return (
@@ -73,17 +74,17 @@ export default function Header({ onNavigateToAuth, onNavigateToCategory, onNavig
           <div className="flex-1 flex justify-start items-center space-x-4 relative">
             <button
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="px-4 py-2 border-2 border-white text-white hover:bg-white hover:text-gray-900 transition-all font-medium text-base rounded-md flex items-center space-x-2"
+              className="px-4 py-2 border-2 border-white text-white hover:bg-white hover:text-gray-900 transition-all font-medium text-base rounded-full flex items-center space-x-2"
             >
               <span>Find Good</span>
               <ChevronDown className="w-4 h-4" />
             </button>
-            {onNavigateToNews && (
+            {onNavigateToFundraise && (
               <button
-                onClick={onNavigateToNews}
-                className="px-4 py-2 border-2 border-white text-white hover:bg-white hover:text-gray-900 transition-all font-medium text-base rounded-md"
+                onClick={onNavigateToFundraise}
+                className="px-4 py-2 border-2 border-white text-white hover:bg-white hover:text-gray-900 transition-all font-medium text-base rounded-full"
               >
-                News
+                Fundraise
               </button>
             )}
 
@@ -143,25 +144,53 @@ export default function Header({ onNavigateToAuth, onNavigateToCategory, onNavig
           </div>
 
           <div className="flex-1 flex justify-end items-center space-x-6">
+            <div className="relative">
+              <button
+                onClick={() => setIsAboutOpen(!isAboutOpen)}
+                className="text-white hover:text-emerald-300 transition-colors text-base font-medium flex items-center space-x-1"
+              >
+                <span>About</span>
+                <ChevronDown className="w-4 h-4" />
+              </button>
+              {isAboutOpen && (
+                <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-lg shadow-xl py-2">
+                  <button className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 text-sm">
+                    About Us
+                  </button>
+                  <button className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 text-sm">
+                    How It Works
+                  </button>
+                  <button className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 text-sm">
+                    Contact
+                  </button>
+                </div>
+              )}
+            </div>
             {isSearchOpen ? (
               <div className="flex items-center space-x-2 h-10">
                 <input
                   type="text"
                   placeholder="Search..."
                   autoFocus
-                  className="h-10 px-4 py-2 border-2 border-white bg-transparent text-white placeholder-white/70 rounded-md focus:outline-none focus:bg-white focus:text-gray-900 focus:placeholder-gray-400 transition-all font-medium text-base"
+                  className="h-10 px-4 py-2 border-2 border-white bg-transparent text-white placeholder-white/70 rounded-full focus:outline-none focus:bg-white focus:text-gray-900 focus:placeholder-gray-400 transition-all font-medium text-base"
                   onBlur={() => setIsSearchOpen(false)}
                 />
               </div>
             ) : (
               <button
                 onClick={() => setIsSearchOpen(true)}
-                className="h-10 px-4 py-2 border-2 border-white text-white hover:bg-white hover:text-gray-900 transition-all font-medium text-base rounded-md flex items-center space-x-2"
+                className="text-white hover:text-emerald-300 transition-colors text-base font-medium flex items-center space-x-2"
               >
                 <Search className="w-4 h-4" />
                 <span>Search</span>
               </button>
             )}
+            <button
+              onClick={onNavigateToAuth}
+              className="px-4 py-2 border-2 border-white text-white hover:bg-white hover:text-gray-900 transition-all font-medium text-base rounded-full whitespace-nowrap"
+            >
+              Start a Page
+            </button>
             {user ? (
               <UserProfileDropdown
                 onNavigateToDashboard={onNavigateToDashboard}
@@ -169,20 +198,12 @@ export default function Header({ onNavigateToAuth, onNavigateToCategory, onNavig
                 onLogout={signOut}
               />
             ) : (
-              <>
-                <button
-                  onClick={onNavigateToAuth}
-                  className="text-white hover:text-emerald-300 transition-colors text-base font-medium whitespace-nowrap"
-                >
-                  Log in
-                </button>
-                <button
-                  onClick={onNavigateToAuth}
-                  className="px-6 py-2.5 bg-[#E07855] text-white rounded-md hover:bg-[#D06845] transition-all font-medium text-base whitespace-nowrap"
-                >
-                  Create Your Page
-                </button>
-              </>
+              <button
+                onClick={onNavigateToAuth}
+                className="text-white hover:text-emerald-300 transition-colors text-base font-medium whitespace-nowrap"
+              >
+                Sign in
+              </button>
             )}
           </div>
         </div>
