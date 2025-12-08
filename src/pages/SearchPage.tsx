@@ -126,9 +126,9 @@ export default function SearchPage({
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#FBF7F4]">
       <div className="relative">
-        <div className="absolute top-0 left-0 right-0 z-50 bg-gradient-to-b from-emerald-600 to-emerald-700">
+        <div className="absolute top-0 left-0 right-0 z-50">
           <Header
             onNavigateToAuth={onNavigateToAuth}
             onNavigateToCategory={onNavigateToCategory}
@@ -139,78 +139,102 @@ export default function SearchPage({
           />
         </div>
 
-        <div className="pt-32 pb-12 bg-gradient-to-b from-emerald-600 to-emerald-700">
+        <div className="pt-32 pb-16 bg-white">
           <div className="max-w-4xl mx-auto px-4 text-center">
-            <h1 className="text-5xl font-bold text-white mb-4">Find fundraisers</h1>
-            <p className="text-xl text-white/90 mb-8">
+            <h1 className="text-5xl font-bold text-gray-900 mb-4">Find fundraisers</h1>
+            <p className="text-xl text-gray-600 mb-8">
               Find fundraisers by person's name, location, title, or keyword
             </p>
 
             <div className="relative max-w-2xl mx-auto">
               <div className="absolute inset-y-0 left-6 flex items-center pointer-events-none">
-                <Search className="w-6 h-6 text-gray-400" />
+                <Search className="w-5 h-5 text-gray-400" />
               </div>
               <input
                 type="text"
                 placeholder="Search"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-16 pr-6 py-5 text-lg rounded-full border-0 shadow-lg focus:outline-none focus:ring-4 focus:ring-emerald-300"
+                className="w-full pl-14 pr-6 py-4 text-base bg-gray-100 rounded-full border-0 focus:outline-none focus:ring-2 focus:ring-gray-300"
               />
             </div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex items-center gap-4 mb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="flex items-center gap-3 mb-10">
           <button
             onClick={() => setActiveTab('trending')}
-            className={`px-6 py-3 rounded-full font-semibold text-base transition-all ${
+            className={`px-6 py-2.5 rounded-full font-semibold text-base transition-all ${
               activeTab === 'trending'
                 ? 'bg-gray-900 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                : 'bg-white text-gray-700 hover:bg-gray-100'
             }`}
           >
             Trending
           </button>
           <button
             onClick={() => setActiveTab('near-you')}
-            className={`px-6 py-3 rounded-full font-semibold text-base transition-all ${
+            className={`px-6 py-2.5 rounded-full font-semibold text-base transition-all ${
               activeTab === 'near-you'
                 ? 'bg-gray-900 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                : 'bg-white text-gray-700 hover:bg-gray-100'
             }`}
           >
             Near you
           </button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {fundraisers.map((fundraiser) => (
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:row-span-2 group cursor-pointer" onClick={() => {}}>
+            <div className="relative aspect-[4/5] rounded-xl overflow-hidden mb-4">
+              <img
+                src={fundraisers[0].image_url}
+                alt={fundraisers[0].title}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
+              {fundraisers[0].title}
+            </h3>
+            <div className="space-y-2">
+              <div className="w-full bg-gray-200 rounded-full h-1.5 overflow-hidden">
+                <div
+                  className="bg-[#02A95C] h-full rounded-full transition-all duration-300"
+                  style={{ width: `${getProgressPercentage(fundraisers[0].amount_raised, fundraisers[0].goal_amount)}%` }}
+                />
+              </div>
+              <p className="text-base font-bold text-gray-900">
+                {formatAmount(fundraisers[0].amount_raised)} raised
+              </p>
+            </div>
+          </div>
+
+          {fundraisers.slice(1).map((fundraiser, index) => (
             <div
               key={fundraiser.id}
               className="group cursor-pointer"
               onClick={() => {}}
             >
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden mb-4 shadow-md group-hover:shadow-xl transition-shadow">
+              <div className="relative aspect-[4/3] rounded-xl overflow-hidden mb-3">
                 <img
                   src={fundraiser.image_url}
                   alt={fundraiser.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-emerald-600 transition-colors">
+              <h3 className="text-lg font-bold text-gray-900 mb-2.5 line-clamp-2">
                 {fundraiser.title}
               </h3>
-              <div className="space-y-2">
-                <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+              <div className="space-y-1.5">
+                <div className="w-full bg-gray-200 rounded-full h-1.5 overflow-hidden">
                   <div
-                    className="bg-emerald-500 h-full rounded-full transition-all duration-300"
+                    className="bg-[#02A95C] h-full rounded-full transition-all duration-300"
                     style={{ width: `${getProgressPercentage(fundraiser.amount_raised, fundraiser.goal_amount)}%` }}
                   />
                 </div>
-                <p className="text-lg font-bold text-gray-900">
+                <p className="text-base font-bold text-gray-900">
                   {formatAmount(fundraiser.amount_raised)} raised
                 </p>
               </div>
