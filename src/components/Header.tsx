@@ -59,11 +59,11 @@ interface HeaderProps {
   onNavigateToFundraise?: () => void;
   onNavigateHome?: () => void;
   onNavigateToProfile?: () => void;
+  onNavigateToSearch?: () => void;
 }
 
-export default function Header({ onNavigateToAuth, onNavigateToCategory, onNavigateToDashboard, onNavigateToFundraise, onNavigateHome, onNavigateToProfile }: HeaderProps) {
+export default function Header({ onNavigateToAuth, onNavigateToCategory, onNavigateToDashboard, onNavigateToFundraise, onNavigateHome, onNavigateToProfile, onNavigateToSearch }: HeaderProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const { user, signOut } = useAuth();
 
@@ -167,25 +167,13 @@ export default function Header({ onNavigateToAuth, onNavigateToCategory, onNavig
                 </div>
               )}
             </div>
-            {isSearchOpen ? (
-              <div className="flex items-center space-x-2 h-10">
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  autoFocus
-                  className="h-10 px-4 py-2 border-2 border-white bg-transparent text-white placeholder-white/70 rounded-full focus:outline-none focus:bg-white focus:text-gray-900 focus:placeholder-gray-400 transition-all font-medium text-lg"
-                  onBlur={() => setIsSearchOpen(false)}
-                />
-              </div>
-            ) : (
-              <button
-                onClick={() => setIsSearchOpen(true)}
-                className="text-white hover:text-emerald-300 transition-colors text-lg font-medium flex items-center space-x-2"
-              >
-                <Search className="w-5 h-5" />
-                <span>Search</span>
-              </button>
-            )}
+            <button
+              onClick={onNavigateToSearch}
+              className="text-white hover:text-emerald-300 transition-colors text-lg font-medium flex items-center space-x-2"
+            >
+              <Search className="w-5 h-5" />
+              <span>Search</span>
+            </button>
             <button
               onClick={onNavigateToAuth}
               className="px-4 py-2 border-2 border-white text-white hover:bg-white hover:text-gray-900 transition-all font-medium text-lg rounded-full whitespace-nowrap"

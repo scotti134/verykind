@@ -16,6 +16,7 @@ import CategoryPage from './pages/CategoryPage';
 import CreatorProfilePage from './pages/CreatorProfilePage';
 import CreatorDashboard from './pages/CreatorDashboard';
 import ExplorePage from './pages/ExplorePage';
+import SearchPage from './pages/SearchPage';
 import MembershipPage from './pages/MembershipPage';
 import PostsPage from './pages/PostsPage';
 import ShopPage from './pages/ShopPage';
@@ -26,6 +27,7 @@ type Page =
   | { type: 'auth' }
   | { type: 'fundraise' }
   | { type: 'explore' }
+  | { type: 'search' }
   | { type: 'category'; category: string; subcategory?: string }
   | { type: 'creator'; creatorId: string }
   | { type: 'dashboard' }
@@ -41,6 +43,7 @@ function App() {
   const navigateToAuth = () => setCurrentPage({ type: 'auth' });
   const navigateToFundraise = () => setCurrentPage({ type: 'fundraise' });
   const navigateToExplore = () => setCurrentPage({ type: 'explore' });
+  const navigateToSearch = () => setCurrentPage({ type: 'search' });
   const navigateToDashboard = () => setCurrentPage({ type: 'dashboard' });
   const navigateToProfileSetup = () => setCurrentPage({ type: 'profile-setup' });
   const navigateToCategory = (category: string, subcategory?: string) => {
@@ -79,6 +82,7 @@ function App() {
                 onNavigateToFundraise={navigateToFundraise}
                 onNavigateHome={navigateToHome}
                 onNavigateToProfile={navigateToProfile}
+                onNavigateToSearch={navigateToSearch}
               />
             </div>
             <div className="pt-24">
@@ -104,6 +108,16 @@ function App() {
           onNavigateToFundraise={navigateToFundraise}
           onNavigateToCategory={navigateToCategory}
           onNavigateToCreator={navigateToCreator}
+        />
+      ) : currentPage.type === 'search' ? (
+        <SearchPage
+          onNavigateHome={navigateToHome}
+          onNavigateToAuth={navigateToAuth}
+          onNavigateToDashboard={navigateToDashboard}
+          onNavigateToFundraise={navigateToFundraise}
+          onNavigateToCategory={navigateToCategory}
+          onNavigateToCreator={navigateToCreator}
+          onNavigateToProfile={navigateToProfile}
         />
       ) : currentPage.type === 'category' ? (
         <CategoryPage
@@ -173,6 +187,7 @@ function App() {
                 onNavigateToFundraise={navigateToFundraise}
                 onNavigateHome={undefined}
                 onNavigateToProfile={navigateToProfile}
+                onNavigateToSearch={navigateToSearch}
               />
             </div>
             <Hero onNavigateToAuth={navigateToAuth} onNavigateToExplore={navigateToExplore} onNavigateToDashboard={navigateToProfileSetup} />
