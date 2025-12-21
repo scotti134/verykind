@@ -13,7 +13,7 @@ export default function UserProfileDropdown({
   onNavigateToProfile,
   onLogout
 }: UserProfileDropdownProps) {
-  const { user, profile } = useAuth();
+  const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -35,7 +35,7 @@ export default function UserProfileDropdown({
 
   if (!user) return null;
 
-  const profileImageUrl = profile?.avatar_url || 'https://images.pexels.com/photos/1181519/pexels-photo-1181519.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop';
+  const profileImageUrl = 'https://images.pexels.com/photos/1181519/pexels-photo-1181519.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop';
 
   return (
     <div className="flex items-center gap-3" ref={dropdownRef}>
@@ -51,7 +51,7 @@ export default function UserProfileDropdown({
           <Menu className="w-5 h-5 text-gray-600" />
           <img
             src={profileImageUrl}
-            alt={profile?.display_name || 'User'}
+            alt="User"
             className="w-8 h-8 rounded-full object-cover"
           />
         </button>

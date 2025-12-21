@@ -62,13 +62,19 @@ export default function CategoryPage({ category, subcategory, onNavigateToCreato
 
     // If database query succeeds and has data, use it
     if (!error && data && data.length > 0) {
-      setCreators(data);
+      // Map database fields to Creator interface
+      const mappedData = data.map((d: Record<string, unknown>) => ({
+        ...d,
+        main_category: d.main_category || d.category || ''
+      })) as Creator[];
+      setCreators(mappedData);
     } else {
-      // Otherwise, use mock data
+      // Otherwise, use mock data - map category to main_category
       let filteredCreators = sampleCreators.map((creator, index) => ({
         ...creator,
         id: `mock-${index}`,
         user_id: `mock-user-${index}`,
+        main_category: creator.category.toLowerCase(),
         created_at: new Date().toISOString()
       }));
 

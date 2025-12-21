@@ -52,7 +52,7 @@ export default function CreatorDashboard({
   onNavigateToDashboard,
   onNavigateToFundraise
 }: CreatorDashboardProps) {
-  const { user, profile } = useAuth();
+  const { user } = useAuth();
   const [loading, setLoading] = useState(true);
   const [creatorPage, setCreatorPage] = useState<CreatorPage | null>(null);
   const [stats, setStats] = useState<DashboardStats>({
@@ -673,7 +673,7 @@ export default function CreatorDashboard({
                 type="text"
                 value={pageTitle}
                 onChange={(e) => setPageTitle(e.target.value)}
-                placeholder={`Support ${profile?.display_name || 'my work'}`}
+                placeholder="Support my work"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
               />
             </div>
@@ -767,7 +767,7 @@ export default function CreatorDashboard({
     );
   }
 
-  const pageUrl = `buymeacoffee.com/${creatorPage?.username || profile?.username || 'user'}`;
+  const pageUrl = `buymeacoffee.com/${creatorPage?.username || 'user'}`;
 
   return (
     <div className="min-h-screen bg-gray-50 flex">
@@ -985,7 +985,7 @@ export default function CreatorDashboard({
               </div>
             )}
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Hi, {creatorPage?.title || profile?.display_name || 'Creator'}</h1>
+              <h1 className="text-2xl font-bold text-gray-900">Hi, {creatorPage?.title || 'Creator'}</h1>
               <p className="text-sm text-gray-600">{pageUrl}</p>
             </div>
             <button
